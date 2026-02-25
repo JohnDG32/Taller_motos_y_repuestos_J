@@ -92,3 +92,30 @@ CREATE TABLE Detalle_compra (
     FOREIGN KEY (id_compra) REFERENCES Compra(id_compra) ON DELETE CASCADE,
     FOREIGN KEY (id_producto) REFERENCES Producto(id_producto)
 );
+USE sistema_ventas;
+-- 1. Insertar Categorías (Basado en la lista real)
+INSERT INTO Categoria (nombre_categoria) VALUES
+('Transmisión'),
+('Accesorios y Chasis'),
+('Llantas y Gomas'),
+('Motor'),
+('Sistema Eléctrico'),
+('Frenos'),
+('Filtros y Lubricantes');
+
+-- 2. Insertar Productos (Nombres limpios, sin faltas de ortografía, con stock real del WhatsApp)
+-- Nota: Los precios (precio_costo y precio_venta) son estimaciones para prueba. 
+-- El stock_minimo está seteado en 5 para que C# dispare alertas.
+INSERT INTO Producto (nombre, descripcion, marca, precio_venta, stock, stock_minimo, id_categoria) VALUES
+('Piñón 520', 'Piñón de transmisión paso 520', 'Genérico', 45.00, 10, 5, 1),
+('Goma Cachuda 100/90-18', 'Neumático trasero con tacos', 'Genérico', 280.00, 2, 4, 3),
+('Rodamiento 6204', 'Rodamiento universal de rueda/motor', 'Genérico', 25.00, 10, 5, 4),
+('Filtro de Aire Brozz', 'Elemento filtrante de aire', 'Brozz', 35.00, 4, 5, 7), -- Este disparará alerta (4 < 5)
+('Batería 12V 7A', 'Batería de gel libre mantenimiento', 'Kanda', 180.00, 1, 3, 5), -- Este disparará alerta (1 < 3)
+('Transmisión Boxer', 'Kit de arrastre completo', 'Boxer', 150.00, 10, 4, 1),
+('Válvulas 150cc', 'Juego de válvulas de admisión y escape', 'Genérico', 55.00, 15, 5, 4),
+('Motor de Arranque 150cc', 'Motor de partida', 'Kanda', 220.00, 2, 2, 5),
+('CDI Kanda', 'Módulo de encendido electrónico', 'Kanda', 65.00, 5, 3, 5),
+('Cámara 300/18', 'Cámara de aire para llanta', 'Genérico', 40.00, 50, 10, 3),
+('Carburador 150cc', 'Carburador completo PZ27', 'Genérico', 140.00, 5, 2, 4),
+('Bomba de Freno Delantero Brozz', 'Cilindro maestro de freno', 'Brozz', 110.00, 2, 2, 6);
